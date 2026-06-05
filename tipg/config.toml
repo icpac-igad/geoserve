@@ -1,0 +1,17 @@
+# tipg configuration. Only schemas listed under [tipg.database.schemas]
+# are auto-discovered as collections; tables, views, and PL/pgSQL
+# functions inside them become OGC API endpoints.
+#
+# Tighten this list as the gha schema gets split into tipg vs admin-only
+# objects — anything left in `public` should NOT be exposed.
+
+[tipg.database]
+schemas = ["gha", "public"]
+# Exclude bookkeeping tables that aren't useful as OGC collections.
+exclude_table_schemas = []
+exclude_function_schemas = []
+
+[tipg.features]
+# Result-set caps for the OGC Features endpoint. Tiles aren't affected.
+default_features_limit = 10_000
+max_features_per_query = 10_000
